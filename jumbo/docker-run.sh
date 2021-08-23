@@ -55,11 +55,13 @@ db_host="127.0.0.1"
 # Your xoxob token - use your secrets vault to inject it here or place it in a tightly scoped file.
 # Since we pass this into the command line, it will be visible on your host ps table if you set it
 # here. We recommend setting it elsewhere.
-#SLACK_TOKEN=
+#
+# export is needed because of how we pass these below.
+#export SLACK_TOKEN=
 
 # 
 # The channel you want Validator to post to.
-#SLACK_CHANNEL_ALARM="dataculpa"
+#export SLACK_CHANNEL_ALARM="dataculpa"
 
 [ -z "$SLACK_TOKEN" ] && echo "WARNING: SLACK_TOKEN is empty" >&2
 [ -z "$SLACK_CHANNEL_ALARM " ] && echo "WARNING: SLACK_TOKEN is empty" >&2
