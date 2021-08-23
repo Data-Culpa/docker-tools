@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -e
 #
 # Example script showing the Docker configuration for Data Culpa Validator in 
 # a "jumbo" container.
@@ -19,6 +19,12 @@
 
 # The name of the container image; 'dc' is our default.
 container="dc"
+
+#if [ "$(docker container inspect -f '{{.State.Running}}' $container) " == "true" ]; then
+#    echo "There appears to be a running container \"$container\" already:" >&2
+#    docker ps
+#    exit 2
+#fi
 
 ###############################################################################
 # Ports
@@ -53,7 +59,7 @@ db_host="127.0.0.1"
 
 # 
 # The channel you want Validator to post to.
-SLACK_CHANNEL_ALARM="general"
+#SLACK_CHANNEL_ALARM="dataculpa"
 
 [ -z "$SLACK_TOKEN" ] && echo "WARNING: SLACK_TOKEN is empty" >&2
 [ -z "$SLACK_CHANNEL_ALARM " ] && echo "WARNING: SLACK_TOKEN is empty" >&2
@@ -74,12 +80,12 @@ persist=1
 docker_volume=${docker_volume:="dataculpa-workbench"}
 volume=""
 if [ $persist -ne 0 ]; then
+    echo "... will persist storage in $docker_volume"
     volume=("--mount" "type=volume,source=${docker_volume},target=/data")
 else
     echo "WARNING: not persisting storage across container restarts" >&2
 fi
 
-echo $volume
 set +e
 vers=`docker image inspect --format='{{.ContainerConfig.Labels.version}}' $container` 
 rc=$?
