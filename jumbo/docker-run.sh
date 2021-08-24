@@ -14,7 +14,7 @@
 # $ docker stop dc
 #        stop the 'dc' container
 #
-# $ docker image inspect --format='{{.ContainerConfig.Labels.version}}' 
+# $ docker image inspect --format='{{.ContainerConfig.Labels.version}}' dc
 #        Show the Data Culpa Validator version information
 
 # The name of the container image; 'dc' is our default.
